@@ -206,7 +206,7 @@ jobs:
                 --name ${{ env.RESOURCE_GROUP_NAME }} \
                 --yes \
                 --no-wait
-            echo "Resource group deleted...  ${{ env.RESOURCE_GROUP_NAME }}"
+            echo "Resource group deleted....  ${{ env.RESOURCE_GROUP_NAME }}"
           else
             echo "Resource group does not exists."
           fi
