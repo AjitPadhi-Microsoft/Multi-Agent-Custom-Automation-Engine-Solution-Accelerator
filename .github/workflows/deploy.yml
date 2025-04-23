@@ -73,12 +73,11 @@ jobs:
         id: generate_rg_name
         run: |
           echo "Generating a unique resource group name..."
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          COMMON_PART="ci-biab"
-          UNIQUE_RG_NAME="${COMMON_PART}${TIMESTAMP}"
+          ACCL_NAME="ci-biab"  # Account name as specified
+          SHORT_UUID=$(uuidgen | cut -d'-' -f1)
+          UNIQUE_RG_NAME="arg-${ACCL_NAME}-${SHORT_UUID}"
           echo "RESOURCE_GROUP_NAME=${UNIQUE_RG_NAME}" >> $GITHUB_ENV
-          echo "Generated Resource_GROUP_PREFIX: ${UNIQUE_RG_NAME}" 
-      
+          echo "Generated Resource_GROUP_PREFIX: ${UNIQUE_RG_NAME}"
 
       - name: Check and Create Resource Group
         id: check_create_rg
@@ -126,8 +125,6 @@ jobs:
       - name: Get OpenAI, App Service and Container Registry Resource from Resource Group
         id: get_openai_resource
         run: |
-
-
           set -e
           echo "Fetching OpenAI resource from resource group ${{ env.RESOURCE_GROUP_NAME }}..."
           
